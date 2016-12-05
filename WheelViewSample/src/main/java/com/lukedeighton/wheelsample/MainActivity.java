@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
 
 
     List<Pair<String, Pair<Drawable, Integer>>> mDrawableEntries  = new ArrayList<Pair<String, Pair<Drawable,Integer>>>(ITEM_COUNT);
-    private ImageView imageView = null;
+    private ImageView mImageView = null;
     private Button mBtnRegister = null;
     private Button mBtnBingo = null;
     private AttendantData mSelectedGift;
@@ -58,16 +58,16 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mTextViewGiftCount = (TextView)findViewById(R.id.textview_gift_count);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setOnTouchListener(this);
+        mImageView = (ImageView) findViewById(R.id.imageView);
+        mImageView.setOnTouchListener(this);
         mBtnRegister = (Button)findViewById(R.id.registerBtn);
         mBtnRegister.setOnClickListener(this);
         mBtnBingo = (Button)findViewById(R.id.btn_bingo);
         mBtnBingo.setOnClickListener(this);
 
 //        Drawable d1 = ResourcesCompat.getDrawable(getResources(), R.drawable.gift2, getTheme());
-////        imageView.setBackgroundResource(R.drawable.gift1);
-//        imageView.setImageDrawable(d1);
+////        mImageView.setBackgroundResource(R.drawable.gift1);
+//        mImageView.setImageDrawable(d1);
 
         final WheelView wheelView = (WheelView) findViewById(R.id.wheelview);
         if(wheelView==null){
@@ -98,7 +98,8 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
 //                Map.Entry<String, Integer> selectedEntry = ((MaterialColorAdapter) parent.getAdapter()).getItem(position);
                 Pair<String, Pair<Drawable, Integer>> selectedEntry = ((DrawableAdapter) parent.getAdapter()).getItem(position);
                 parent.setSelectionColor(getContrastColor(selectedEntry));
-                imageView.setBackgroundResource(sGiftDrawables[position%17]);
+                mImageView.setVisibility(View.VISIBLE);
+                mImageView.setBackgroundResource(sGiftDrawables[position%17]);
             }
         });
 
@@ -109,6 +110,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
+
 
         //initialise the selection drawable with the first contrast color
         wheelView.setSelectionColor(getContrastColor(entries.get(0)));
@@ -165,6 +167,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                         .show();
                 return false;
             }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             String confirm = getResources().getString(R.string.btn_confirm_select);
             String cancel = getResources().getString(R.string.btn_cancel_select);
@@ -175,6 +178,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                     GuestManager.getSingleton(MainActivity.this).removeAttendant(mSelectedGift);
                     int size = GuestManager.getSingleton(MainActivity.this).getList().size();
                     mTextViewGiftCount.setText(String.valueOf(size));
+                    mImageView.setVisibility(View.INVISIBLE);
                 }
             }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -236,6 +240,8 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         }
         return false;
     }
+
+
 
     @Override
     public void onResume(){

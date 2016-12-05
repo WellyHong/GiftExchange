@@ -168,6 +168,8 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                 return false;
             }
 
+            mImageView.setVisibility(View.INVISIBLE);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             String confirm = getResources().getString(R.string.btn_confirm_select);
             String cancel = getResources().getString(R.string.btn_cancel_select);
@@ -178,7 +180,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                     GuestManager.getSingleton(MainActivity.this).removeAttendant(mSelectedGift);
                     int size = GuestManager.getSingleton(MainActivity.this).getList().size();
                     mTextViewGiftCount.setText(String.valueOf(size));
-                    mImageView.setVisibility(View.INVISIBLE);
+
                 }
             }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -268,7 +270,6 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                         .create()
                         .show();
                 return;
-
             }
 
             int size = GuestManager.getSingleton(this).getBingoNumbers().size();
@@ -319,7 +320,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
             Drawable[] drawable = new Drawable[] {
                     createOvalDrawable(getItem(position).second.second),
                     getItem(position).second.first,
-                    new TextDrawable(String.valueOf(position))
+//                    new TextDrawable(String.valueOf(position))
             };
             return new LayerDrawable(drawable);
         }

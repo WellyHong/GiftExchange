@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WheelView"><attr format="reference" name="wheelDrawable"/><attr format="color" name="wheelColor"/><attr format="string" name="wheelItemTransformer"/><attr format="string" name="selectionTransformer"/><attr format="reference" name="emptyItemDrawable"/><attr format="color" name="emptyItemColor"/><attr format="reference" name="selectionDrawable"/><attr format="color" name="selectionColor"/><attr format="dimension" name="selectionPadding"/><attr format="float" name="selectionAngle"/><attr format="boolean" name="repeatItems"/><attr format="boolean" name="rotatableWheelDrawable"/><attr format="dimension" name="wheelRadius">
+            <enum name="match_parent" value="-1"/>
+            
+        </attr><attr format="dimension" name="wheelItemRadius"/><attr format="dimension" name="wheelOffsetX"/><attr format="dimension" name="wheelOffsetY"/><attr format="integer" name="wheelItemCount"/><attr format="float" name="wheelItemAngle"/><attr format="float" name="wheelItemAnglePadding"/><attr format="dimension" name="wheelToItemDistance">
+            <enum name="match_parent" value="-1"/>
+        </attr><attr name="wheelPosition">
+            <flag name="left" value="0x01"/>
+            <flag name="right" value="0x02"/>
+            <flag name="top" value="0x04"/>
+            <flag name="bottom" value="0x08"/>
+        </attr><attr format="dimension" name="wheelPadding"/></declare-styleable>
+    <string name="app_name">WheelView</string>
+</resources>

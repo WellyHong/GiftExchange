@@ -1,0 +1,7 @@
+#Mon Dec 05 10:55:41 CST 2016
+base.0=/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_8888af4cdef544d0659215fc72ebe77d63d8e36a
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_10f8710124f432bb31a999b7cba0810b52e05840/classes.dex
+base.1=/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_10f8710124f432bb31a999b7cba0810b52e05840
+file.0=/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_8888af4cdef544d0659215fc72ebe77d63d8e36a/classes.dex

@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lukedeighton.wheelview.WheelView
+        android:id="@+id/wheelview"
+        android:layout_width="match_parent"
+        app:emptyItemColor="@color/green_900"
+        app:wheelColor="@color/grey_400"
+        app:rotatableWheelDrawable="false"
+        app:selectionAngle="90.0"
+        app:selectionColor="@color/teal_900"
+        app:selectionPadding="4dp"
+        app:repeatItems="true"
+        app:wheelRadius="276dp"
+        app:wheelItemCount="14"
+        app:wheelPadding="13dp"
+        app:wheelItemRadius="41dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="@string/register_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerBtn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:text="@string/gift_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="30sp"
+        android:layout_alignBaseline="@+id/registerBtn"
+        android:layout_alignBottom="@+id/registerBtn"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_gift_count"
+        android:textSize="30sp"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/gift1"
+        android:id="@+id/imageView"
+        tools:ignore="ContentDescription"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:text="@string/btn_bingo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btn_bingo" />
+
+    <!--
+            app:wheelPosition="bottom"
+                    app:wheelOffsetY="60dp"
+
+        app:wheelItemTransformer="com.lukedeighton.wheelview.transformer.SimpleItemTransformer"
+
+    -->
+</RelativeLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="23"
+    density="xhdpi"
+    format="8"
+    plugin-version="2.2.2"
+    timestamp="5544674836906"
+    token="-6365342000451881880"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="714" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="515" />
+    <task
+        name="verifier"
+        duration="67" />
+
+    <artifact
+        location="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/outputs/apk/WheelViewSample-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="187162553965774"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/Users/wellyhong/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/instant-run-resources/resources-debug.ir.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="/Users/wellyhong/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex"
+            type="DEX" />
+    </build>
+
+</instant-run>

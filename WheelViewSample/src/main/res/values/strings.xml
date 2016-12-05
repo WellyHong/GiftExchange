@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WheelTest</string>
+    <string name="register_btn">登錄</string>
+    <string name="gift_count">剩餘禮物：</string>
+    <string name="btn_confirm_select">確認此禮物</string>
+    <string name="btn_bingo">已選賓果號碼</string>
+    <string name="btn_cancel_select">取消</string>
+    <string name="text_attendant_count">出席人數：</string>
+    <string name="text_no_gift">沒有禮物可交換了喔!</string>
+    <string name="register_add_btn">加入</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="ids_104">
+        <item>n044020001</item>
+        <item>n044020002</item>
+        <item>n044020003</item>
+        <item>n044020004</item>
+        <item>n044020005</item>
+        <item>n044020006</item>
+        <item>n044020007</item>
+        <item>n044020008</item>
+        <item>n044020009</item>
+        <item>n044020010</item>
+        <item>n044020011</item>
+        <item>n044020012</item>
+        <item>n044020013</item>
+        <item>n044020014</item>
+        <item>n044020015</item>
+        <item>n044020016</item>
+        <item>n044020017</item>
+        <item>n044020018</item>
+        <item>n044020019</item>
+        <item>n044020020</item>
+        <item>n044020021</item>
+        <item>n044020022</item>
+        <item>n044020023</item>
+        <item>n044020024</item>
+        <item>n044020025</item>
+        <item>n044020026</item>
+        <item>n044020027</item>
+        <item>n044020028</item>
+        <item>n044020029</item>
+        <item>n044020030</item>
+    </string-array>
+
+    <string-array name="ids_105">
+        <item>n054020001</item>
+        <item>n054020002</item>
+        <item>n054020003</item>
+        <item>n054020004</item>
+        <item>n054020005</item>
+        <item>n054020006</item>
+        <item>n054020007</item>
+        <item>n054020008</item>
+        <item>n054020009</item>
+        <item>n054020010</item>
+        <item>n054020011</item>
+        <item>n054020012</item>
+        <item>n054020013</item>
+        <item>n054020014</item>
+        <item>n054020015</item>
+        <item>n054020016</item>
+        <item>n054020017</item>
+        <item>n054020018</item>
+        <item>n054020019</item>
+        <item>n054020020</item>
+        <item>n054020021</item>
+        <item>n054020022</item>
+        <item>n054020023</item>
+        <item>n054020024</item>
+        <item>n054020025</item>
+        <item>n054020026</item>
+        <item>n054020027</item>
+        <item>n054020028</item>
+        <item>n054020029</item>
+        <item>n044020030</item>
+    </string-array>
+
+    <string-array name="names_104">
+        <item>曹昱仁</item>
+        <item>呂柏輝</item>
+        <item>張殷豪</item>
+        <item>林彥君</item>
+        <item>李中舜</item>
+        <item>李昱樺</item>
+        <item>葉香臨</item>
+        <item>許永錚</item>
+        <item>羅允澤</item>
+        <item>高美莉</item>
+        <item>梁明榮</item>
+        <item>杜瑋茹</item>
+        <item>黃信培</item>
+        <item>陳銘崧</item>
+        <item>鄭恆一</item>
+        <item>何少華</item>
+        <item>高振益</item>
+        <item>嚴志和</item>
+        <item>葉永隆</item>
+        <item>李怡姍</item>
+        <item>陳曉怡</item>
+        <item>林揚</item>
+        <item>呂斌源</item>
+        <item>羅瓊雯</item>
+        <item>朱哲誼</item>
+        <item>張雅婷</item>
+        <item>陳冠呈</item>
+        <item>吳宜靜</item>
+        <item>莊雅茵</item>
+        <item>洪慈威</item>
+    </string-array>
+    <string-array name="names_105">
+        <item>林玫妏</item>
+        <item>陳昭源</item>
+        <item>蔡於庭</item>
+        <item>凃復雄</item>
+        <item>黃建明</item>
+        <item>郭淑娟</item>
+        <item>薛文奇</item>
+        <item>洪珮茵</item>
+        <item>林紹軒</item>
+        <item>陳智勉</item>
+        <item>王培龍</item>
+        <item>涂琦棟</item>
+        <item>陳虹諭</item>
+    </string-array>
+</resources>

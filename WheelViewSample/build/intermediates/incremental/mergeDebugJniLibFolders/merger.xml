@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/src/debug/jniLibs"/></dataSet></merger>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="194f15ea64b2344b5008b0224d7acd1e431b7119">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_10f8710124f432bb31a999b7cba0810b52e05840/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_aa59c93878a81c8c700272ae42a8b23105199e94/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e106385fdc9454e9c02ee8546195f65bcdaa9aeb">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_8888af4cdef544d0659215fc72ebe77d63d8e36a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_a2c1b3fc68fb595910f37a60e4f0828a9bee41c5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_146c99176fda83986da0b300815ff5209b0a7a7b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_1bf557e54974238bd5fec70596662bd17e9792e1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_b8c9161b81062c750fcfb5c20a3b0b40b9790f2a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/welly_hung/AndroidStudioProjects/WheelView/WheelViewSample/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_309f1f8c10378ae023941b805da3db45b5b36d0c/classes.dex" />
+    </item>
+
+</items>

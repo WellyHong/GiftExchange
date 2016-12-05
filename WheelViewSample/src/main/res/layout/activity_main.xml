@@ -69,7 +69,8 @@
         android:layout_below="@+id/registerBtn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/btn_bingo" />
+        android:id="@+id/btn_bingo"
+        android:visibility="invisible" />
 
     <!--
             app:wheelPosition="bottom"

@@ -23,21 +23,17 @@ public class GuestManager {
 
 
     private volatile static GuestManager sInstance;
-    private static String[] s104Ids;
-    private static String[] s105Ids;
+    private static String[] sIds;
     private static int[] sOthersIds;
-    private static String[] s104Names;
-    private static String[] s105Names;
-    private static int[] s104QRDrawables = {
+    private static String[] sNames;
+    private static int[] sQRDrawables = {
             R.drawable.n044020001,R.drawable.n044020002,R.drawable.n044020003,R.drawable.n044020004,R.drawable.n044020005,
             R.drawable.n044020006,R.drawable.n044020007,R.drawable.n044020008,R.drawable.n044020009,R.drawable.n044020010,
             R.drawable.n044020011,R.drawable.n044020012,R.drawable.n044020013,R.drawable.n044020014,R.drawable.n044020015,
             R.drawable.n044020016,R.drawable.n044020017,R.drawable.n044020018,R.drawable.n044020019,R.drawable.n044020020,
             R.drawable.n044020021,R.drawable.n044020022,R.drawable.n044020023,R.drawable.n044020024,R.drawable.n044020025,
             R.drawable.n044020026,R.drawable.n044020027,R.drawable.n044020028,R.drawable.n044020029,R.drawable.n044020030,
-    };
-
-    private static int[] s105QRDrawables = {
+            //105
             R.drawable.n044020001,R.drawable.n044020002,R.drawable.n044020003,R.drawable.n044020004,R.drawable.n044020005,
             R.drawable.n044020006,R.drawable.n044020007,R.drawable.n044020008,R.drawable.n044020009,R.drawable.n044020010,
             R.drawable.n044020011,R.drawable.n044020012,R.drawable.n044020013,R.drawable.n044020014,R.drawable.n044020015,
@@ -50,6 +46,7 @@ public class GuestManager {
         if(sInstance == null) {
             synchronized (GuestManager.class) {
                 if(sInstance == null) {
+                    Log.d(TAG, "GuestManager sInstance=null");
                     sInstance = new GuestManager(c);
                 }
             }
@@ -58,20 +55,18 @@ public class GuestManager {
     }
 
     private GuestManager(Context c){
-
+        Log.d(TAG, "GuestManager construct");
         mContext = c;
 
-        s104Ids = c.getResources().getStringArray(R.array.ids_104);
-        s105Ids = c.getResources().getStringArray(R.array.ids_105);
-        s104Names = c.getResources().getStringArray(R.array.names_104);
-        s105Names = c.getResources().getStringArray(R.array.names_105);
+        sIds = c.getResources().getStringArray(R.array.ids);
+        sNames = c.getResources().getStringArray(R.array.names);
         mPreference = c.getSharedPreferences(Constants.PREFERENCE_GIFT_EXCHANGE, 0);
+
         if(mRemainderBingoList.size()<=0) {
             for (int i = 0; i < 75; i++) {
                 mRemainderBingoList.add(i + 1);
             }
         }
-
 //        AttendantData p = new AttendantData();
 //        p.mID = "n044020030";
 //        mAttendantList.add(p);
@@ -79,6 +74,7 @@ public class GuestManager {
     }
 
     public void DestroyInstance(){
+        Log.d(TAG, "GuestManager DestroyInstance");
         sInstance = null;
         mContext = null;
         mAttendantList.clear();
@@ -117,26 +113,13 @@ public class GuestManager {
 //            mAttendantStrings.add(id);
 //        }
 
-        for(int i=0; i<s104Ids.length; i++) {
-                if (token[0].toLowerCase().contains(s104Ids[i])) {
-                    Log.d(TAG, "manager add 104 id:" + token[0]);
+        for(int i=0; i<sIds.length; i++) {
+                if (token[0].toLowerCase().contains(sIds[i])) {
+                    Log.d(TAG, "manager add id:" + token[0]);
                     AttendantData attendant = new AttendantData();
-                    attendant.mID = s104Ids[i];
-                    attendant.mName = s104Names[i];
-                    attendant.mDrawableId = s104QRDrawables[i];
-                    attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
-                    mAttendantList.add(attendant);
-                    return;
-                }
-        }
-
-        for(int i=0; i<s105Ids.length; i++) {
-                if (token[0].toLowerCase().contains(s105Ids[i])) {
-                    Log.d(TAG, "manager add 105 id:" + token[0]);
-                    AttendantData attendant = new AttendantData();
-                    attendant.mID = s105Ids[i];
-                    attendant.mName = s105Names[i];
-                    attendant.mDrawableId = s105QRDrawables[i];
+                    attendant.mID = sIds[i];
+                    attendant.mName = sNames[i];
+                    attendant.mDrawableId = sQRDrawables[i];
                     attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
                     mAttendantList.add(attendant);
                     return;
@@ -182,7 +165,7 @@ public class GuestManager {
 //        }
 //    }
 
-    public ArrayList<AttendantData> getList(){
+    public ArrayList<AttendantData> getAttendantList(){
         return mAttendantList;
     }
 

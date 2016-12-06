@@ -12,4 +12,5 @@ public class AttendantData {
     public Drawable mDrawable;
     public int mDrawableId;
     public boolean mIsAttendance;
+    public boolean mIsGiftExchanged = false;
 }

@@ -55,6 +55,23 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate");
+
+        ArrayList<AttendantData> t1 = new ArrayList<AttendantData>();
+        for(int i=0; i<5; i++){
+            AttendantData a = new AttendantData();
+            a.mID = String.valueOf(i+1);
+            a.mName = String.valueOf(i+1)+",abc";
+            t1.add(a);
+        }
+        ArrayList<AttendantData> t2 = (ArrayList<AttendantData> )t1.clone();
+        t2.remove(4);
+        t1.get(0).mID = "cdefg";
+
+        Log.d("test", "t1 size:"+t1.size()+",t2 size:"+t2.size());
+        Log.d("test", "t1-0 id:"+t1.get(0).mID+",t2-0 id:"+t2.get(0).mID);
+
+
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mTextViewGiftCount = (TextView)findViewById(R.id.textview_gift_count);
@@ -154,7 +171,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(v.getId()==R.id.imageView ){
-            if(GuestManager.getSingleton(this).getList().isEmpty()){
+            if(GuestManager.getSingleton(this).getAttendantList().isEmpty()){
                 new AlertDialog.Builder(this)
                         .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
                             @Override
@@ -178,7 +195,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d(TAG, "confirm gift click");
                     GuestManager.getSingleton(MainActivity.this).removeAttendant(mSelectedGift);
-                    int size = GuestManager.getSingleton(MainActivity.this).getList().size();
+                    int size = GuestManager.getSingleton(MainActivity.this).getAttendantList().size();
                     mTextViewGiftCount.setText(String.valueOf(size));
 
                 }
@@ -195,9 +212,9 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
 
             ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
             Random r = new Random();
-            int size = GuestManager.getSingleton(MainActivity.this).getList().size();
+            int size = GuestManager.getSingleton(MainActivity.this).getAttendantList().size();
             int index = size>1 ? r.nextInt(size) : 0;
-            mSelectedGift = GuestManager.getSingleton(MainActivity.this).getList().get(index);
+            mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantList().get(index);
 
 //            Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
 //                    mSelectedGift.mDrawableId);
@@ -227,9 +244,9 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
 //                    ImageView image = (ImageView) dialog.findViewById(R.id.dialog_image_qr);
 //                    Random r = new Random();
 //
-//                    int size = GuestManager.getSingleton(MainActivity.this).getList().size();
+//                    int size = GuestManager.getSingleton(MainActivity.this).getAttendantList().size();
 //                    int index = size>1 ? r.nextInt(size) : 0;
-//                    mSelectedGift = GuestManager.getSingleton(MainActivity.this).getList().get(index);
+//                    mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantList().get(index);
 //                    Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
 //                            mSelectedGift.mDrawableId);
 //                    float imageWidthInPX = (float)image.getWidth();
@@ -244,13 +261,38 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
     }
 
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
 
     @Override
     public void onResume(){
         super.onResume();
-        int size = GuestManager.getSingleton(this).getList().size();
+        Log.d(TAG, "onResume");
+        int size = GuestManager.getSingleton(this).getAttendantList().size();
         mTextViewGiftCount.setText(String.valueOf(size));
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.registerBtn){

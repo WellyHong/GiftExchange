@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.CheckBox;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 public class AttendantActivity extends Activity implements TextWatcher, View.OnClickListener {
 //    private AttendantAdapter mAddapter;
+    private static final String TAG = AttendantActivity.class.toString();
     private ListView mListView;
     private EditText mEditText;
     private TextView mTextViewCount;
@@ -39,13 +41,15 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         mBtnAdd = (Button)findViewById(R.id.btn_add);
         mBtnAdd.setOnClickListener(this);
 
+        Log.d(TAG, "onCreate");
+
         mTextViewCount = (TextView)findViewById(R.id.textview_attendant_count);
 
         mListView = (ListView)findViewById(R.id.attendantListView);
         mEditText = (EditText)findViewById(R.id.editText2);
         mEditText.addTextChangedListener(this);
         mAdapter = new AttendantAdapter(this,
-                R.layout.attendant_list_row_view, GuestManager.getSingleton(this).getList());
+                R.layout.attendant_list_row_view, GuestManager.getSingleton(this).getAttendantList());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,11 +58,11 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        GuestManager.getSingleton(AttendantActivity.this).getList().remove(position);
-                        AttendantData attendant = GuestManager.getSingleton(AttendantActivity.this).getList().get(position);
+//                        GuestManager.getSingleton(AttendantActivity.this).getAttendantList().remove(position);
+                        AttendantData attendant = GuestManager.getSingleton(AttendantActivity.this).getAttendantList().get(position);
                         GuestManager.getSingleton(AttendantActivity.this).removeAttendant(attendant);
                         mAdapter.notifyDataSetChanged();
-                        mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(AttendantActivity.this).getList().size()));
+                        mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(AttendantActivity.this).getAttendantList().size()));
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -76,6 +80,38 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     }
 
     @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG, "onResume");
+        int size = GuestManager.getSingleton(this).getAttendantList().size();
+        mTextViewCount.setText(String.valueOf(size));
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
     public void onClick(View v) {
         if(v.getId()==R.id.btn_add){
             Log.d("AttendantActivity", "Press Add btn : "+mEditText.getText().toString());
@@ -83,7 +119,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
             mAdapter.notifyDataSetChanged();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
-                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getList().size()));
+                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
             }
         }
     }
@@ -105,6 +141,8 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 
     private class AttendantHolder{
         TextView txtView;
+        CheckBox checkBox;
+
     }
 
     private class AttendantAdapter extends ArrayAdapter<AttendantData>{
@@ -134,7 +172,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
                 holder = new AttendantHolder();
 //                holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
                 holder.txtView = (TextView)row.findViewById(R.id.row_textView);
-
+                holder.checkBox = (CheckBox)row.findViewById(R.id.checkBox);
                 row.setTag(holder);
             }
             else
@@ -144,6 +182,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 
             AttendantData attendant = this.data.get(position);
             holder.txtView.setText(attendant.mID+","+attendant.mName);
+            holder.checkBox.setChecked(attendant.mIsGiftExchanged);
 //            holder.imgIcon.setImageResource(weather.icon);
 
             return row;

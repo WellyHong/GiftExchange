@@ -9,9 +9,11 @@
     <string name="btn_cancel_select">取消</string>
     <string name="text_attendant_count">出席人數：</string>
     <string name="text_no_gift">沒有禮物可交換了喔!</string>
+    <string name="text_is_giftexchanged">禮物已交換</string>
     <string name="register_add_btn">加入</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
     <string-array name="ids">
         <item>n044020001</item>
         <item>n044020002</item>

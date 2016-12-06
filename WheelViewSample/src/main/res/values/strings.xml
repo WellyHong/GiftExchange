@@ -12,7 +12,7 @@
     <string name="register_add_btn">加入</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string-array name="ids_104">
+    <string-array name="ids">
         <item>n044020001</item>
         <item>n044020002</item>
         <item>n044020003</item>
@@ -43,9 +43,7 @@
         <item>n044020028</item>
         <item>n044020029</item>
         <item>n044020030</item>
-    </string-array>
-
-    <string-array name="ids_105">
+        <!-- 105 -->
         <item>n054020001</item>
         <item>n054020002</item>
         <item>n054020003</item>
@@ -78,7 +76,7 @@
         <item>n044020030</item>
     </string-array>
 
-    <string-array name="names_104">
+    <string-array name="names">
         <item>曹昱仁</item>
         <item>呂柏輝</item>
         <item>張殷豪</item>
@@ -109,20 +107,36 @@
         <item>吳宜靜</item>
         <item>莊雅茵</item>
         <item>洪慈威</item>
-    </string-array>
-    <string-array name="names_105">
-        <item>林玫妏</item>
-        <item>陳昭源</item>
-        <item>蔡於庭</item>
-        <item>凃復雄</item>
-        <item>黃建明</item>
-        <item>郭淑娟</item>
+        <!-- 105 -->
+        <item>黃春勝</item>
         <item>薛文奇</item>
+        <item>邱明相</item>
+        <item>曹晉維</item>
+        <item>郭淑娟</item>
+        <item>N054020006</item>
+        <item>N054020007</item>
+        <item>陳筱柔</item>
+        <item>鄭家弘</item>
+        <item>N054020010</item>
+        <item>N054020011</item>
+        <item>蔡沐樺</item>
         <item>洪珮茵</item>
+        <item>陳虹諭</item>
         <item>林紹軒</item>
+        <item>黃建明</item>
+        <item>蔡元益</item>
+        <item>N054020018</item>
+        <item>董怡君</item>
+        <item>李昇財</item>
         <item>陳智勉</item>
         <item>王培龍</item>
-        <item>涂琦棟</item>
-        <item>陳虹諭</item>
+        <item>王國穎</item>
+        <item>蔡於庭</item>
+        <item>N054020025</item>
+        <item>郭朝榮</item>
+        <item>陳佩儒</item>
+        <item>林玫妏</item>
+        <item>陳昭源</item>
+        <item>N054020030</item>
     </string-array>
 </resources>

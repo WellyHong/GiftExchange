@@ -11,6 +11,7 @@
     <string name="text_no_gift">沒有禮物可交換了喔!</string>
     <string name="text_is_giftexchanged">禮物已交換</string>
     <string name="register_add_btn">加入</string>
+    <string name="btn_back">返回</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 

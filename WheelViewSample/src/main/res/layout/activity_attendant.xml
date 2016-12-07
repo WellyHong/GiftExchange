@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <Button
+        android:text="@string/register_add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_add"
+        android:layout_alignBaseline="@+id/editText2"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="24sp" />
+
     <TextView
         android:id="@+id/label_attentdant"
         android:layout_below="@+id/editText2"
@@ -46,13 +57,12 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="@string/register_add_btn"
+        android:text="@string/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_add"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:id="@+id/btn_back"
+        android:textSize="24sp"
+        android:layout_below="@+id/editText2"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="24sp" />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

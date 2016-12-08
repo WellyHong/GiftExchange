@@ -50,6 +50,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 
         mListView = (ListView)findViewById(R.id.attendantListView);
         mEditText = (EditText)findViewById(R.id.editText2);
+        mEditText.requestFocus();
         mEditText.addTextChangedListener(this);
         mAdapter = new AttendantAdapter(this,
                 R.layout.attendant_list_row_view, GuestManager.getSingleton(this).getAttendantList());
@@ -120,6 +121,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
             Log.d("AttendantActivity", "Press Add btn : "+mEditText.getText().toString());
             GuestManager.getSingleton(this).addAttendant(mEditText.getText().toString());
             mAdapter.notifyDataSetChanged();
+            mEditText.requestFocus();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
                 mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));

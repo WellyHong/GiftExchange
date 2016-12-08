@@ -86,29 +86,31 @@ public class GuestManager {
         mAttendantList.add(person);
     }
 
-    public void addAttendant(String id){
+    public void addAttendant(String scanStr){
 
-        String[] token = id.split(";");
+        String[] token = scanStr.split(";");
+        String id = "";
 
         if(token.length<=0 || !token[0].toLowerCase().contains("n0")){
-            Log.d(TAG, "scan token length:"+ token.length+", or does not contain n0");
+            Log.w(TAG, "scan token length:"+ token.length+", or does not contain n0");
             return;
         }else{
-            Log.d(TAG, "scanne id : "+token[0]);
-            Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
+            id = token[0].toLowerCase().replace(" ", "").trim();
+            Log.d(TAG, "scanne id : "+id);
+//            Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
         }
 
         for(String s:mAttendantStrings){
-            if(token[0].toLowerCase().contains(s)){
-                Log.d(TAG, "attendant list contain:"+s);
-                Toast.makeText(mContext, "id:"+s+" is existed.", Toast.LENGTH_SHORT);
+            if(id.contains(s)){
+                Log.w(TAG, "attendant list contain:"+s);
+//                Toast.makeText(mContext, "id:"+s+" is existed.", Toast.LENGTH_SHORT);
                 return;
             }
         }
 
-        mAttendantStrings.add(token[0].toLowerCase());
+        mAttendantStrings.add(id);
         for(String s:mAttendantStrings){
-            Log.d(TAG, "id:"+s);
+            Log.d(TAG, "added str:"+s);
         }
 //        if(mAttendantStrings.contains(id)){
 //            Log.w(TAG, id+" has existed.");
@@ -118,8 +120,8 @@ public class GuestManager {
 //        }
 
         for(int i=0; i<sIds.length; i++) {
-                if (token[0].toLowerCase().contains(sIds[i])) {
-                    Log.d(TAG, "manager add id:" + token[0]);
+                if (id.contains(sIds[i])) {
+                    Log.d(TAG, "attendantList add id:" + id);
                     AttendantData attendant = new AttendantData();
                     attendant.mID = sIds[i];
                     attendant.mName = sNames[i];

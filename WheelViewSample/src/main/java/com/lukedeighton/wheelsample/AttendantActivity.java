@@ -32,6 +32,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     private EditText mEditText;
     private TextView mTextViewCount;
     private Button mBtnAdd;
+    private Button mBtnBack;
     AttendantAdapter mAdapter;
 
     @Override
@@ -40,6 +41,8 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         setContentView(R.layout.activity_attendant);
         mBtnAdd = (Button)findViewById(R.id.btn_add);
         mBtnAdd.setOnClickListener(this);
+        mBtnBack = (Button)findViewById(R.id.btn_back);
+        mBtnBack.setOnClickListener(this);
 
         Log.d(TAG, "onCreate");
 
@@ -121,6 +124,8 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
                 mEditText.setText("");
                 mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
             }
+        }else if(v.getId()==R.id.btn_back){
+            finish();
         }
     }
 

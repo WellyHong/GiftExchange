@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
  * Created by wellyhong on 2016/12/3.
  */
 
-public class AttendantActivity extends Activity implements TextWatcher, View.OnClickListener {
+public class AttendantActivity extends Activity implements TextWatcher, View.OnClickListener, TextView.OnEditorActionListener {
 //    private AttendantAdapter mAddapter;
     private static final String TAG = AttendantActivity.class.toString();
     private ListView mListView;
@@ -52,6 +54,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         mEditText = (EditText)findViewById(R.id.editText2);
         mEditText.requestFocus();
         mEditText.addTextChangedListener(this);
+        mEditText.setOnEditorActionListener(this);
         mAdapter = new AttendantAdapter(this,
                 R.layout.attendant_list_row_view, GuestManager.getSingleton(this).getAttendantList());
         mListView.setAdapter(mAdapter);
@@ -133,17 +136,49 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        Log.d(TAG, "beforeTextChanged:"+s);
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        Log.d(TAG, "onTextChanged:"+s);
     }
 
     @Override
     public void afterTextChanged(Editable s) {
+        Log.d(TAG, "afterTextChanged:"+s.toString());
+        String newLine = System.getProperty("line.separator");
+        if (s.toString().contains(newLine)) {
+            Log.d(TAG, "afterTextChanged: str has new line.");
+        }
 
+        if(s.toString().isEmpty()){
+            return;
+        }
+//
+        GuestManager.getSingleton(this).addAttendant(s.toString());
+        mAdapter.notifyDataSetChanged();
+//        mEditText.requestFocus();
+        if(mTextViewCount!=null) {
+            mEditText.setText("");
+            mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
+        }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        if(i== EditorInfo.IME_NULL){
+            Log.d(TAG, "receive enter press");
+            GuestManager.getSingleton(this).addAttendant(mEditText.getText().toString());
+            mAdapter.notifyDataSetChanged();
+            mEditText.requestFocus();
+            if(mTextViewCount!=null) {
+                mEditText.setText("");
+                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
+            }
+//            return true;
+        }
+        return false;
     }
 
     private class AttendantHolder{

@@ -95,7 +95,7 @@ public class GuestManager {
             Log.w(TAG, "scan token length:"+ token.length+", or does not contain n0");
             return;
         }else{
-            id = token[0].toLowerCase().replace(" ", "").trim();
+            id = token[0].toLowerCase().replace("\\s", "").trim();
             Log.d(TAG, "scanne id : "+id);
 //            Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">WheelTest</string>
+    <string name="app_name">中山交換禮物</string>
     <string name="register_btn">登錄</string>
     <string name="gift_count">剩餘禮物：</string>
     <string name="btn_confirm_select">確認此禮物</string>

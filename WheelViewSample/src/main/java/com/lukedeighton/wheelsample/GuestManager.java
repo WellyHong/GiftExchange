@@ -91,9 +91,10 @@ public class GuestManager {
         String[] token = id.split(";");
 
         if(token.length<=0 || !token[0].toLowerCase().contains("n0")){
+            Log.d(TAG, "scan token length:"+ token.length+", or does not contain n0");
             return;
         }else{
-            Log.d(TAG, "scanne id is"+token[0]);
+            Log.d(TAG, "scanne id : "+token[0]);
             Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
         }
 
@@ -106,6 +107,9 @@ public class GuestManager {
         }
 
         mAttendantStrings.add(token[0].toLowerCase());
+        for(String s:mAttendantStrings){
+            Log.d(TAG, "id:"+s);
+        }
 //        if(mAttendantStrings.contains(id)){
 //            Log.w(TAG, id+" has existed.");
 //            return;

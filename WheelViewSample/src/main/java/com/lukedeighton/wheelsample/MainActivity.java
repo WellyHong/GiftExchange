@@ -10,6 +10,8 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v7.app.AppCompatActivity;
 import com.lukedeighton.wheelview.WheelView;
 import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
 
@@ -33,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MainActivity extends Activity implements ImageView.OnTouchListener, View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements ImageView.OnTouchListener, View.OnClickListener {
     private static final String TAG = MainActivity.class.toString();
     private static final int ITEM_COUNT = 45;
     private static final int[] sGiftDrawables = {
@@ -54,6 +56,8 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         Log.d(TAG, "onCreate");
 
@@ -77,6 +81,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         mTextViewGiftCount = (TextView)findViewById(R.id.textview_gift_count);
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setOnTouchListener(this);
+        mImageView.setVisibility(View.INVISIBLE);
         mBtnRegister = (Button)findViewById(R.id.registerBtn);
         mBtnRegister.setOnClickListener(this);
         mBtnBingo = (Button)findViewById(R.id.btn_bingo);
@@ -165,7 +170,45 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_clear_all){
-            GuestManager.getSingleton(getApplicationContext()).clearAllData();
+            Log.d(TAG, "menu clear all pressed");
+            new AlertDialog.Builder(this)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d(TAG, "confirm clear all");
+                            GuestManager.getSingleton(getApplicationContext()).clearAllData();
+                            mTextViewGiftCount.setText(String.valueOf(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()));
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            })
+                    .setMessage(MainActivity.this.getResources().getString(R.string.text_confirm_clear))
+                    .create()
+                    .show();
+
+
+            return true;
+        }else if(id == R.id.action_reload){
+
+            Log.d(TAG, "menu reload pressed");
+            new AlertDialog.Builder(this)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d(TAG, "confirm reload");
+                            GuestManager.getSingleton(getApplicationContext()).reloadData();
+                            mTextViewGiftCount.setText(String.valueOf(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()));
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            })
+                    .setMessage(MainActivity.this.getResources().getString(R.string.text_confirm_reload))
+                    .create()
+                    .show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -200,7 +243,6 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                     GuestManager.getSingleton(MainActivity.this.getApplicationContext()).exchangeWithAttendant(mSelectedGift);
                     int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
                     mTextViewGiftCount.setText(String.valueOf(size));
-
                 }
             }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                 @Override

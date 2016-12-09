@@ -10,4 +10,8 @@
         android:title="@string/action_clear_all"
         android:orderInCategory="101"
         app:showAsAction="never" />
+    <item android:id="@+id/action_reload"
+        android:title="@string/action_reload"
+        android:orderInCategory="102"
+        app:showAsAction="never" />
 </menu>

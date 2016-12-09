@@ -35,12 +35,12 @@ public class GuestManager {
             R.drawable.n044020021, R.drawable.n044020022, R.drawable.n044020023, R.drawable.n044020024, R.drawable.n044020025,
             R.drawable.n044020026, R.drawable.n044020027, R.drawable.n044020028, R.drawable.n044020029, R.drawable.n044020030,
             //105
-            R.drawable.n044020001, R.drawable.n044020002, R.drawable.n044020003, R.drawable.n044020004, R.drawable.n044020005,
-            R.drawable.n044020006, R.drawable.n044020007, R.drawable.n044020008, R.drawable.n044020009, R.drawable.n044020010,
-            R.drawable.n044020011, R.drawable.n044020012, R.drawable.n044020013, R.drawable.n044020014, R.drawable.n044020015,
-            R.drawable.n044020016, R.drawable.n044020017, R.drawable.n044020018, R.drawable.n044020019, R.drawable.n044020020,
-            R.drawable.n044020021, R.drawable.n044020022, R.drawable.n044020023, R.drawable.n044020024, R.drawable.n044020025,
-            R.drawable.n044020026, R.drawable.n044020027, R.drawable.n044020028, R.drawable.n044020029, R.drawable.n044020030,
+            R.drawable.n054020001, R.drawable.n054020002, R.drawable.n054020003, R.drawable.n054020004, R.drawable.n054020005,
+            R.drawable.n054020006, R.drawable.n054020007, R.drawable.n054020008, R.drawable.n054020009, R.drawable.n054020010,
+            R.drawable.n054020011, R.drawable.n054020012, R.drawable.n054020013, R.drawable.n054020014, R.drawable.n054020015,
+            R.drawable.n054020016, R.drawable.n054020017, R.drawable.n054020018, R.drawable.n054020019, R.drawable.n054020020,
+            R.drawable.n054020021, R.drawable.n054020022, R.drawable.n054020023, R.drawable.n054020024, R.drawable.n054020025,
+            R.drawable.n054020026, R.drawable.n054020027, R.drawable.n054020028, R.drawable.n054020029, R.drawable.n054020030,
     };
 
     public static GuestManager getSingleton(Context c) {
@@ -90,7 +90,7 @@ public class GuestManager {
 
     public void addAttendantByScanQRCode(String scanStr) {
 
-        String[] token = scanStr.split(";");
+        String[] token = scanStr.split(",");
         String id = "";
 
         if (token.length <= 0 || !token[0].toLowerCase().contains("n0")) {
@@ -158,6 +158,7 @@ public class GuestManager {
             for (String gift : mRemainderGiftStrings) {
                 giftsStr += (gift + ",");
             }
+            Log.d(TAG, "after exchange "+id+", size:"+mRemainderGiftStrings.size()+", remainder list:"+giftsStr);
             mPreference.edit().putString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, giftsStr).commit();
         }
     }
@@ -192,7 +193,7 @@ public class GuestManager {
                         attendant.mName = sNames[i];
                         attendant.mDrawableId = sQRDrawables[i];
                         attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
-                        attendant.mIsGiftExchanged = false;
+                        attendant.mIsGiftExchanged = true;
                         mAttendantDataList.add(attendant);
                     }
                 }
@@ -211,7 +212,7 @@ public class GuestManager {
         for(AttendantData attendant:mAttendantDataList){
             for(String gift:mRemainderGiftStrings){
                 if(attendant.mID.contains(gift)){
-                    attendant.mIsGiftExchanged = true;
+                    attendant.mIsGiftExchanged = false;
                 }
             }
         }

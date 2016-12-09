@@ -55,7 +55,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         mEditText.requestFocus();
         mEditText.addTextChangedListener(this);
         mEditText.setOnEditorActionListener(this);
-        mAdapter = new AttendantAdapter(getApplicationContext(),
+        mAdapter = new AttendantAdapter(AttendantActivity.this,
                 R.layout.attendant_list_row_view, GuestManager.getSingleton(getApplicationContext()).getAttendantList());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -158,7 +158,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 //
         GuestManager.getSingleton(this).addAttendantByScanQRCode(s.toString());
         mAdapter.notifyDataSetChanged();
-//        mEditText.requestFocus();
+        mEditText.requestFocus();
         if(mTextViewCount!=null) {
             mEditText.setText("");
             mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantsSize()));
@@ -215,6 +215,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 //                holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
                 holder.txtView = (TextView)row.findViewById(R.id.row_textView);
                 holder.checkBox = (CheckBox)row.findViewById(R.id.checkBox);
+                holder.checkBox.setClickable(false);
                 row.setTag(holder);
             }
             else

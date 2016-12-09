@@ -62,7 +62,7 @@ public class WheelView extends View {
     private static final float VELOCITY_FRICTION_COEFFICIENT = 0.015f;
     private static final float CONSTANT_FRICTION_COEFFICIENT = 0.0028f;
     private static final float ANGULAR_VEL_COEFFICIENT = 22f;
-    private static final float MAX_ANGULAR_VEL = 0.4f;
+    private static final float MAX_ANGULAR_VEL = 0.45f;
 
     private static final int LEFT_MASK = 0x01;
     private static final int RIGHT_MASK = 0x02;

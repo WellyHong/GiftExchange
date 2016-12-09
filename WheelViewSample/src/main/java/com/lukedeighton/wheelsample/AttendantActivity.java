@@ -55,21 +55,21 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         mEditText.requestFocus();
         mEditText.addTextChangedListener(this);
         mEditText.setOnEditorActionListener(this);
-        mAdapter = new AttendantAdapter(this,
-                R.layout.attendant_list_row_view, GuestManager.getSingleton(this).getAttendantList());
+        mAdapter = new AttendantAdapter(getApplicationContext(),
+                R.layout.attendant_list_row_view, GuestManager.getSingleton(getApplicationContext()).getAttendantList());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AttendantActivity.this);
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        GuestManager.getSingleton(AttendantActivity.this).getAttendantList().remove(position);
-                        AttendantData attendant = GuestManager.getSingleton(AttendantActivity.this).getAttendantList().get(position);
-                        GuestManager.getSingleton(AttendantActivity.this).removeAttendant(attendant);
+                        AttendantData attendant = (AttendantData)view.getTag();
+                        GuestManager.getSingleton(AttendantActivity.this.getApplicationContext()).removeAttendant(attendant);
                         mAdapter.notifyDataSetChanged();
-                        mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(AttendantActivity.this).getAttendantList().size()));
+                        mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(AttendantActivity.this.getApplicationContext()).getAttendantsSize()));
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -96,7 +96,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     public void onResume(){
         super.onResume();
         Log.d(TAG, "onResume");
-        int size = GuestManager.getSingleton(this).getAttendantList().size();
+        int size = GuestManager.getSingleton(getApplicationContext()).getAttendantsSize();
         mTextViewCount.setText(String.valueOf(size));
     }
 
@@ -122,12 +122,12 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     public void onClick(View v) {
         if(v.getId()==R.id.btn_add){
             Log.d("AttendantActivity", "Press Add btn : "+mEditText.getText().toString());
-            GuestManager.getSingleton(this).addAttendant(mEditText.getText().toString());
+            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString());
             mAdapter.notifyDataSetChanged();
             mEditText.requestFocus();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
-                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
+                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantsSize()));
             }
         }else if(v.getId()==R.id.btn_back){
             finish();
@@ -156,12 +156,12 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
             return;
         }
 //
-        GuestManager.getSingleton(this).addAttendant(s.toString());
+        GuestManager.getSingleton(this).addAttendantByScanQRCode(s.toString());
         mAdapter.notifyDataSetChanged();
 //        mEditText.requestFocus();
         if(mTextViewCount!=null) {
             mEditText.setText("");
-            mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
+            mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantsSize()));
         }
     }
 
@@ -169,12 +169,12 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if(i== EditorInfo.IME_NULL){
             Log.d(TAG, "receive enter press");
-            GuestManager.getSingleton(this).addAttendant(mEditText.getText().toString());
+            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString());
             mAdapter.notifyDataSetChanged();
             mEditText.requestFocus();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
-                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantList().size()));
+                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(getApplicationContext()).getAttendantsSize()));
             }
 //            return true;
         }

@@ -164,6 +164,9 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_clear_all){
+            GuestManager.getSingleton(getApplicationContext()).clearAllData();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -171,7 +174,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(v.getId()==R.id.imageView ){
-            if(GuestManager.getSingleton(this).getAttendantList().isEmpty()){
+            if(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()<=0){
                 new AlertDialog.Builder(this)
                         .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
                             @Override
@@ -194,8 +197,8 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d(TAG, "confirm gift click");
-                    GuestManager.getSingleton(MainActivity.this).removeAttendant(mSelectedGift);
-                    int size = GuestManager.getSingleton(MainActivity.this).getAttendantList().size();
+                    GuestManager.getSingleton(MainActivity.this.getApplicationContext()).exchangeWithAttendant(mSelectedGift);
+                    int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
                     mTextViewGiftCount.setText(String.valueOf(size));
 
                 }
@@ -212,13 +215,14 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
 
             ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
             Random r = new Random();
-            int size = GuestManager.getSingleton(MainActivity.this).getAttendantList().size();
+            int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
             int index = size>1 ? r.nextInt(size) : 0;
-            mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantList().get(index);
+            String id = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderId(index);
+            mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantById(id);
 
 //            Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
 //                    mSelectedGift.mDrawableId);
-            image.setImageResource(mSelectedGift.mDrawableId);
+            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
 //            float imageWidthInPX = (float)image.getWidth();
             Log.d(TAG, "index:"+index+",id:"+mSelectedGift.mID+",name:"+mSelectedGift.mName);
 //            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(Math.round(imageWidthInPX),
@@ -271,7 +275,7 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
     public void onResume(){
         super.onResume();
         Log.d(TAG, "onResume");
-        int size = GuestManager.getSingleton(this).getAttendantList().size();
+        int size = GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize();
         mTextViewGiftCount.setText(String.valueOf(size));
     }
 
@@ -299,36 +303,37 @@ public class MainActivity extends Activity implements ImageView.OnTouchListener,
             Intent intent = new Intent(this, AttendantActivity.class);
             startActivity(intent);
 
-        }else if(v.getId()==R.id.btn_bingo){
-            if(GuestManager.getSingleton(this).getBingoNumbers().isEmpty()){
-                new AlertDialog.Builder(this)
-                        .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        } )
-                        .setTitle("Dialog")
-                        .setMessage("No Bingo Numbers")
-                        .create()
-                        .show();
-                return;
-            }
-
-            int size = GuestManager.getSingleton(this).getBingoNumbers().size();
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d(TAG, "bing ok click");
-                }
-            });
-
-            final AlertDialog dialog = builder.create();
-            LayoutInflater inflater = getLayoutInflater();
-            View dialogLayout = inflater.inflate(R.layout.alert_dialog_bingo_layout, null);
-            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
         }
+//        else if(v.getId()==R.id.btn_bingo){
+//            if(GuestManager.getSingleton(getApplicationContext()).getBingoNumbers().isEmpty()){
+//                new AlertDialog.Builder(this)
+//                        .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        } )
+//                        .setTitle("Dialog")
+//                        .setMessage("No Bingo Numbers")
+//                        .create()
+//                        .show();
+//                return;
+//            }
+//
+//            int size = GuestManager.getSingleton(getApplicationContext()).getBingoNumbers().size();
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    Log.d(TAG, "bing ok click");
+//                }
+//            });
+//
+//            final AlertDialog dialog = builder.create();
+//            LayoutInflater inflater = getLayoutInflater();
+//            View dialogLayout = inflater.inflate(R.layout.alert_dialog_bingo_layout, null);
+//            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
+//        }
     }
 
     static class MaterialColorAdapter extends WheelArrayAdapter<Map.Entry<String, Integer>> {

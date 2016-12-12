@@ -12,4 +12,5 @@ public class Constants {
     public static final String PREFERENCE_REMAINDER_GIFT_LIST = "PREFERENCE_GIFT_EXCHANGED_LIST";
     public static final String PREFERENCE_ATTENDANT_LIST = "PREFERENCE_ATTENDANT_LIST";
     public static final String PREFERENCE_SEPERATOR = "&";
+    public static final String QR_SEPARATOR = ";";
 }

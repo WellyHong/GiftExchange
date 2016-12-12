@@ -10,6 +10,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -208,16 +209,16 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
     public boolean onTouch(View v, MotionEvent event) {
         if(v.getId()==R.id.imageView ){
             if(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()<=0){
-                new AlertDialog.Builder(this)
+                AlertDialog dialog = new AlertDialog.Builder(this)
                         .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
                         } )
-                        .setTitle("Dialog")
-                        .setMessage(MainActivity.this.getResources().getString(R.string.text_no_gift))
-                        .create()
-                        .show();
+                        .setMessage(Html.fromHtml("<Big><Big>"+MainActivity.this.getResources().getString(R.string.text_no_gift)+"</Big></Big>"))
+                        .create();
+                dialog.show();
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
                 return false;
             }
 
@@ -255,6 +256,11 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             mStrPreExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPreExchanger;
             mSelectedGift = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getAttendantById(id);
             mStrPostExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPostExchanger;
+
+            String[] separator = mStrPreExchanger.split(Constants.QR_SEPARATOR);
+            mStrPreExchanger = separator.length>=2 ? separator[1] : mStrPreExchanger;
+            separator = mStrPostExchanger.split(Constants.QR_SEPARATOR);
+            mStrPostExchanger = separator.length>=2 ? separator[1] : mStrPostExchanger;
 //            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
 //            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
 
@@ -268,8 +274,8 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             dialog.setView(dialogLayout);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-            dialog.show();
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
+            dialog.show();dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
+
             dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(28);
 
 //            View view = this.getCurrentFocus();

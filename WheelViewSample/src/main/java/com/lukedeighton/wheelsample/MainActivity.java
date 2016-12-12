@@ -49,6 +49,10 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
     private Button mBtnBingo = null;
     private AttendantData mSelectedGift;
     private TextView mTextViewGiftCount;
+    private TextView mTextViewPreExchange;
+    private TextView mTextViewPostExchange;
+    private String mStrPreExchanger = "XXXXX";
+    private String mStrPostExchanger = "XXXXXX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,9 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mTextViewGiftCount = (TextView)findViewById(R.id.textview_gift_count);
+        mTextViewPreExchange = (TextView)findViewById(R.id.text_preExChange);
+        mTextViewPostExchange = (TextView)findViewById(R.id.text_postExchange);
+
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setOnTouchListener(this);
         mImageView.setVisibility(View.INVISIBLE);
@@ -226,6 +233,8 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
                     GuestManager.getSingleton(MainActivity.this.getApplicationContext()).exchangeWithAttendant(mSelectedGift);
                     int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
                     mTextViewGiftCount.setText(String.valueOf(size));
+                    mTextViewPreExchange.setText(mStrPreExchanger);
+                    mTextViewPostExchange.setText(mStrPostExchanger);
                 }
             }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -238,22 +247,30 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.alert_dialog_layout, null);
 
-
             Random r = new Random();
             int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
             int index = size>1 ? r.nextInt(size) : 0;
             String id = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderId(index);
-            mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantById(id);
 
+            mStrPreExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPreExchanger;
+            mSelectedGift = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getAttendantById(id);
+            mStrPostExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPostExchanger;
 //            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
 //            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
+
+//            EditText edit = (EditText)dialogLayout.findViewById(R.id.editText_gift);
+//            edit.setInputType(InputType.TYPE_NULL);
+
+            TextView textSelected = (TextView)dialogLayout.findViewById(R.id.textView_exchange_person);
+            textSelected.setText(mSelectedGift.mID);
             Log.d(TAG, "index:"+index+",id:"+mSelectedGift.mID);
 
             dialog.setView(dialogLayout);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            EditText edit = (EditText)dialogLayout.findViewById(R.id.editText_gift);
-//            edit.setInputType(InputType.TYPE_NULL);
+
             dialog.show();
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(28);
 
 //            View view = this.getCurrentFocus();
 //            if (dialogLayout != null) {

@@ -60,14 +60,15 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Log.d(TAG, "onItemClick:"+position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(AttendantActivity.this);
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        GuestManager.getSingleton(AttendantActivity.this).getAttendantList().remove(position);
-                        AttendantData attendant = (AttendantData)view.getTag();
-                        GuestManager.getSingleton(AttendantActivity.this.getApplicationContext()).removeAttendant(attendant);
+                        AttendantHolder holder = (AttendantHolder)view.getTag();
+                        GuestManager.getSingleton(AttendantActivity.this.getApplicationContext()).removeAttendant(holder.attendant);
                         mAdapter.notifyDataSetChanged();
                         mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(AttendantActivity.this.getApplicationContext()).getAttendantsSize()));
                     }
@@ -122,8 +123,14 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     public void onClick(View v) {
         if(v.getId()==R.id.btn_add){
             Log.d("AttendantActivity", "Press Add btn : "+mEditText.getText().toString());
-            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString());
+            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString(), this);
             mAdapter.notifyDataSetChanged();
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mListView.smoothScrollToPosition(0);
+                }
+            });
             mEditText.requestFocus();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
@@ -136,12 +143,12 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        Log.d(TAG, "beforeTextChanged:"+s);
+//        Log.d(TAG, "beforeTextChanged:"+s);
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        Log.d(TAG, "onTextChanged:"+s);
+//        Log.d(TAG, "onTextChanged:"+s);
     }
 
     @Override
@@ -155,13 +162,21 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
         if(s.toString().isEmpty()){
             return;
         }
-//
-        GuestManager.getSingleton(this).addAttendantByScanQRCode(s.toString());
-        mAdapter.notifyDataSetChanged();
-        mEditText.requestFocus();
-        if(mTextViewCount!=null) {
-            mEditText.setText("");
-            mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantsSize()));
+
+        if (s.toString().contains(newLine)) {
+            GuestManager.getSingleton(this).addAttendantByScanQRCode(s.toString(), this);
+            mAdapter.notifyDataSetChanged();
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mListView.smoothScrollToPosition(0);
+                }
+            });
+            mEditText.requestFocus();
+            if(mTextViewCount!=null) {
+                mEditText.setText("");
+                mTextViewCount.setText(String.valueOf(GuestManager.getSingleton(this).getAttendantsSize()));
+            }
         }
     }
 
@@ -169,8 +184,14 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if(i== EditorInfo.IME_NULL){
             Log.d(TAG, "receive enter press");
-            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString());
+            GuestManager.getSingleton(this).addAttendantByScanQRCode(mEditText.getText().toString(), this);
             mAdapter.notifyDataSetChanged();
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mListView.smoothScrollToPosition(0);
+                }
+            });
             mEditText.requestFocus();
             if(mTextViewCount!=null) {
                 mEditText.setText("");
@@ -184,7 +205,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
     private class AttendantHolder{
         TextView txtView;
         CheckBox checkBox;
-
+        AttendantData attendant;
     }
 
     private class AttendantAdapter extends ArrayAdapter<AttendantData>{
@@ -224,6 +245,7 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
             }
 
             AttendantData attendant = this.data.get(position);
+            holder.attendant = attendant;
 //            holder.txtView.setText(attendant.mID+","+attendant.mName);
             holder.txtView.setText(attendant.mID);
             holder.checkBox.setChecked(attendant.mIsGiftExchanged);

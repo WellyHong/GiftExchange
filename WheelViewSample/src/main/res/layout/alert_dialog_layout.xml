@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="350dp">
 
     <!-- <ImageView
         android:id="@+id/dialog_image_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" /> -->
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -17,6 +17,33 @@
         android:id="@+id/editText_gift"
         android:singleLine="false"
         android:textSize="40sp"
-        android:inputType="none" />
+        android:inputType="none" /> -->
 
+    <TextView
+        android:text="@string/text_gift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textSize="40sp"
+        android:layout_below="@+id/textView_exchange_person"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_exchange_with"
+        android:textSize="40sp"
+        android:text="@string/text_exchange_with"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="XXX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_exchange_person"
+        android:textSize="40sp"
+        android:layout_below="@+id/textView_exchange_with"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

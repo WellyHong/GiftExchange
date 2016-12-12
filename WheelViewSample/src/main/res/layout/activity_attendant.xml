@@ -13,40 +13,18 @@
         android:layout_alignBottom="@+id/editText2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/label_attentdant"
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:text="@string/text_attendant_count"
-        android:textSize="24sp"
-        android:layout_width="120dp"
-        android:layout_height="30dp" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/attendantListView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/btn_back"
-        android:layout_toStartOf="@+id/btn_back"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/textview_attendant_count"
-        android:layout_below="@+id/editText2"
-        android:layout_toRightOf="@+id/label_attentdant"
-        android:layout_toEndOf="@+id/label_attentdant"
-        android:text="0"
-        android:textSize="24sp"
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        android:layout_width="100dp"
-        android:layout_height="30dp" />
+        android:textSize="26sp"
+        android:layout_height="30dp"
+        android:layout_width="140dp"
+        android:textStyle="normal|bold" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -57,6 +35,7 @@
         android:gravity="start"
         android:textAllCaps="false"
         android:textSize="24sp"
+        android:maxLines="2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -70,4 +49,26 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/attendantListView"
+        android:layout_toStartOf="@+id/btn_back"
+        android:layout_below="@+id/btn_back"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textview_attendant_count"
+        android:text="0"
+        android:textSize="26sp"
+        android:textAlignment="viewStart"
+        android:gravity="start"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/btn_add"
+        android:layout_toRightOf="@+id/label_attentdant"
+        android:layout_toEndOf="@+id/label_attentdant"
+        android:textStyle="normal|bold" />
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <resources>刪除
 
     <string name="app_name">交換禮物</string>
-    <string name="register_btn">登錄</string>
+    <string name="register_btn">報到頁面</string>
     <string name="gift_count">剩餘禮物：</string>
     <string name="btn_confirm_select">交換禮物</string>
     <string name="btn_bingo">已選賓果號碼</string>
@@ -10,6 +10,12 @@
     <string name="text_attendant_count">出席人數：</string>
     <string name="text_no_gift">沒有禮物可交換了喔!</string>
     <string name="text_confirm_clear">確認刪除已紀錄資料?</string>
+    <string name="text_exchange_with">恭喜抽到</string>
+    <string name="text_gift"> 的禮物!</string>
+    <string name="text_warn">警告</string>
+    <string name="label_status">目前:</string>
+    <string name="label_exchange">&#032;抽到&#032;</string>
+    <string name="text_duplicate_attendant">此參加者已有紀錄</string>
     <string name="text_confirm_reload">確認重新載入之前資料?</string>
     <string name="text_is_giftexchanged">禮物已交換</string>
     <string name="register_add_btn">加入</string>

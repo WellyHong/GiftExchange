@@ -1,6 +1,8 @@
 package com.lukedeighton.wheelsample;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -76,7 +78,7 @@ public class GuestManager {
     }
 
 
-    public void addAttendantByScanQRCode(String scanStr) {
+    public void addAttendantByScanQRCode(String scanStr, Context c) {
 //        String[] token = scanStr.split(";");
 //        String id = "";
 //        if (token.length <= 0 ) {
@@ -86,29 +88,45 @@ public class GuestManager {
 //            id = token[0].replace("\\s", "").trim();
 //            Log.d(TAG, "scanne id : " + id);
 //        }
+        String newLine = System.getProperty("line.separator");
+        String id = scanStr.replace("\n", "").replace(newLine, "").replace("\\s", "").trim().toUpperCase();
 
-        Log.d(TAG, "scanne str : " + scanStr);
+        if(id.isEmpty()){
+            return;
+        }
+
+        Log.d(TAG, "scanne str : " + id);
 
         for (String s : mAttendantStrings) {
-            if (scanStr.contains(s)) {
+            if (s.contains(id)
+                    || s.equals(id)
+                    || id.contains(s)) {
                 Log.w(TAG, "attendant list contain:" + s);
+                new AlertDialog.Builder(c)
+                        .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        } )
+                        .setMessage(id+"\n"+mContext.getResources().getString(R.string.text_duplicate_attendant))
+                        .create()
+                        .show();
                 return;
             }
         }
 
-        mAttendantStrings.add(scanStr);
+        mAttendantStrings.add(0,id);
         updateAttendantPreference();
 
-        mRemainderGiftStrings.add(scanStr);
+        mRemainderGiftStrings.add(0,id);
         updateRemainderGiftPreference();
 
-        Log.d(TAG, "attendantList add id:" + scanStr);
+        Log.d(TAG, "attendantList add id:" + id);
         AttendantData attendant = new AttendantData();
-        attendant.mID = scanStr;
+        attendant.mID = id;
 //        attendant.mName = token[1];
         attendant.mIsGiftExchanged = false;
-        mAttendantDataList.add(attendant);
-
+        mAttendantDataList.add(0,attendant);
     }
 
 //    public void addAttendantByScanQRCode(String scanStr) {
@@ -178,12 +196,7 @@ public class GuestManager {
             attendant.mIsGiftExchanged = true;
 
             mRemainderGiftStrings.remove(id);
-            String giftsStr = "";
-            for (String gift : mRemainderGiftStrings) {
-                giftsStr += (gift + ",");
-            }
-            Log.d(TAG, "after exchange "+id+", size:"+mRemainderGiftStrings.size()+", remainder list:"+giftsStr);
-            mPreference.edit().putString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, giftsStr).commit();
+            updateRemainderGiftPreference();
         }
     }
 
@@ -203,7 +216,8 @@ public class GuestManager {
         mAttendantDataList.clear();
         mRemainderGiftStrings.clear();
 
-        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split("|");
+        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split(Constants.PREFERENCE_SEPERATOR);
+        Log.d(TAG, "reload data attendant list:"+mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, ""));
         if (attendants.length > 0) {
             for (String id : attendants) {
                 mAttendantStrings.add(id);
@@ -217,7 +231,7 @@ public class GuestManager {
             }
         }
 
-        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split("|");
+        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split(Constants.PREFERENCE_SEPERATOR);
         if(remainderGifts.length>0){
             for(String gift:remainderGifts){
                 mRemainderGiftStrings.add(gift);
@@ -239,7 +253,7 @@ public class GuestManager {
 //        mAttendantDataList.clear();
 //        mRemainderGiftStrings.clear();
 //
-//        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split("|");
+//        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split(Constants.PREFERENCE_SEPERATOR);
 //        if (attendants.length > 0) {
 //            for (String id : attendants) {
 //                for (int i = 0; i < sIds.length; i++) {
@@ -261,7 +275,7 @@ public class GuestManager {
 //            }
 //        }
 //
-//        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split("|");
+//        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split(Constants.PREFERENCE_SEPERATOR);
 //        if(remainderGifts.length>0){
 //            for(String gift:remainderGifts){
 //                mRemainderGiftStrings.add(gift);
@@ -284,7 +298,7 @@ public class GuestManager {
 
     public AttendantData getAttendantById(String id) {
         for (AttendantData attendant : mAttendantDataList) {
-            if (id.toLowerCase().contains(attendant.mID)) {
+            if (id.contains(attendant.mID)) {
                 return attendant;
             }
         }
@@ -304,8 +318,9 @@ public class GuestManager {
     private String updateAttendantPreference() {
         String attendantsStr = "";
         for (String attendant : mAttendantStrings) {
-            attendantsStr += (attendant + "|");
+            attendantsStr += (attendant + Constants.PREFERENCE_SEPERATOR);
         }
+        Log.d(TAG, "updateAttendantPreference:"+attendantsStr);
         mPreference.edit().putString(Constants.PREFERENCE_ATTENDANT_LIST, attendantsStr).commit();
         return attendantsStr;
     }
@@ -313,7 +328,7 @@ public class GuestManager {
     private String updateRemainderGiftPreference() {
         String giftsStr = "";
         for (String gift : mRemainderGiftStrings) {
-            giftsStr += (gift + "|");
+            giftsStr += (gift + Constants.PREFERENCE_SEPERATOR);
         }
         mPreference.edit().putString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, giftsStr).commit();
         return giftsStr;

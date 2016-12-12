@@ -224,7 +224,8 @@ public class AttendantActivity extends Activity implements TextWatcher, View.OnC
             }
 
             AttendantData attendant = this.data.get(position);
-            holder.txtView.setText(attendant.mID+","+attendant.mName);
+//            holder.txtView.setText(attendant.mID+","+attendant.mName);
+            holder.txtView.setText(attendant.mID);
             holder.checkBox.setChecked(attendant.mIsGiftExchanged);
 //            holder.imgIcon.setImageResource(weather.icon);
 

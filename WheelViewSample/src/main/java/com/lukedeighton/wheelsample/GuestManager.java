@@ -2,7 +2,6 @@ package com.lukedeighton.wheelsample;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -61,20 +60,10 @@ public class GuestManager {
 
         mPreference = c.getSharedPreferences(Constants.PREFERENCE_NAME_GIFT_EXCHANGE, 0);
 
-        if(Constants.sIsNeedDB) {
-            sIds = c.getResources().getStringArray(R.array.ids);
-            sNames = c.getResources().getStringArray(R.array.names);
-        }
-
-//        if(mRemainderBingoList.size()<=0) {
-//            for (int i = 0; i < 75; i++) {
-//                mRemainderBingoList.add(i + 1);
-//            }
+//        if(Constants.sIsNeedDB) {
+//            sIds = c.getResources().getStringArray(R.array.ids);
+//            sNames = c.getResources().getStringArray(R.array.names);
 //        }
-
-//        AttendantData p = new AttendantData();
-//        p.mID = "n044020030";
-//        mAttendantDataList.add(p);
 
     }
 
@@ -86,55 +75,87 @@ public class GuestManager {
         mAttendantDataList = null;
     }
 
-//    public void addAttendantByScanQRCode(AttendantData person){
-//        Log.d(TAG, "manager add AttendantData:"+person.mID);
-//        mAttendantDataList.add(person);
-//    }
 
     public void addAttendantByScanQRCode(String scanStr) {
+//        String[] token = scanStr.split(";");
+//        String id = "";
+//        if (token.length <= 0 ) {
+//            Log.w(TAG, "scan token length:" + token.length );
+//            return;
+//        } else {
+//            id = token[0].replace("\\s", "").trim();
+//            Log.d(TAG, "scanne id : " + id);
+//        }
 
-        String[] token = scanStr.split(",");
-        String id = "";
-
-        if (token.length <= 0 || !token[0].toLowerCase().contains("n0")) {
-            Log.w(TAG, "scan token length:" + token.length + ", or does not contain n0");
-            return;
-        } else {
-            id = token[0].toLowerCase().replace("\\s", "").trim();
-            Log.d(TAG, "scanne id : " + id);
-//            Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
-        }
+        Log.d(TAG, "scanne str : " + scanStr);
 
         for (String s : mAttendantStrings) {
-            if (id.contains(s)) {
+            if (scanStr.contains(s)) {
                 Log.w(TAG, "attendant list contain:" + s);
-//                Toast.makeText(mContext, "id:"+s+" is existed.", Toast.LENGTH_SHORT);
                 return;
             }
         }
 
+        mAttendantStrings.add(scanStr);
+        updateAttendantPreference();
 
-        for (int i = 0; i < sIds.length; i++) {
-            if (id.contains(sIds[i])) {
-                mAttendantStrings.add(id);
-                updateAttendantPreference();
+        mRemainderGiftStrings.add(scanStr);
+        updateRemainderGiftPreference();
 
-                mRemainderGiftStrings.add(id);
-                updateRemainderGiftPreference();
-
-                Log.d(TAG, "attendantList add id:" + id);
-                AttendantData attendant = new AttendantData();
-                attendant.mID = sIds[i];
-                attendant.mName = sNames[i];
-                attendant.mIsGiftExchanged = false;
-                attendant.mDrawableId = sQRDrawables[i];
-                attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
-                mAttendantDataList.add(attendant);
-                return;
-            }
-        }
+        Log.d(TAG, "attendantList add id:" + scanStr);
+        AttendantData attendant = new AttendantData();
+        attendant.mID = scanStr;
+//        attendant.mName = token[1];
+        attendant.mIsGiftExchanged = false;
+        mAttendantDataList.add(attendant);
 
     }
+
+//    public void addAttendantByScanQRCode(String scanStr) {
+//
+//        String[] token = scanStr.split(",");
+//        String id = "";
+//
+//
+//        if (token.length <= 0 || !token[0].toLowerCase().contains("n0")) {
+//            Log.w(TAG, "scan token length:" + token.length + ", or does not contain n0");
+//            return;
+//        } else {
+//            id = token[0].toLowerCase().replace("\\s", "").trim();
+//            Log.d(TAG, "scanne id : " + id);
+////            Toast.makeText(mContext, "scanner id:"+token[0], Toast.LENGTH_SHORT);
+//        }
+//
+//        for (String s : mAttendantStrings) {
+//            if (id.contains(s)) {
+//                Log.w(TAG, "attendant list contain:" + s);
+////                Toast.makeText(mContext, "id:"+s+" is existed.", Toast.LENGTH_SHORT);
+//                return;
+//            }
+//        }
+//
+//
+//        for (int i = 0; i < sIds.length; i++) {
+//            if (id.contains(sIds[i])) {
+//                mAttendantStrings.add(id);
+//                updateAttendantPreference();
+//
+//                mRemainderGiftStrings.add(id);
+//                updateRemainderGiftPreference();
+//
+//                Log.d(TAG, "attendantList add id:" + id);
+//                AttendantData attendant = new AttendantData();
+//                attendant.mID = sIds[i];
+//                attendant.mName = sNames[i];
+//                attendant.mIsGiftExchanged = false;
+//                attendant.mDrawableId = sQRDrawables[i];
+//                attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
+//                mAttendantDataList.add(attendant);
+//                return;
+//            }
+//        }
+//
+//    }
 
     public void removeAttendant(String id) {
         AttendantData remove = null;
@@ -182,29 +203,21 @@ public class GuestManager {
         mAttendantDataList.clear();
         mRemainderGiftStrings.clear();
 
-        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split(",");
+        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split("|");
         if (attendants.length > 0) {
             for (String id : attendants) {
-                for (int i = 0; i < sIds.length; i++) {
-                    if (id.toLowerCase().contains(sIds[i])) {
-                        mAttendantStrings.add(id);
-                        updateAttendantPreference();
+                mAttendantStrings.add(id);
+                updateAttendantPreference();
 
-                        Log.d(TAG, "AttendantData list add id:" + id);
-                        AttendantData attendant = new AttendantData();
-                        attendant.mID = sIds[i];
-                        attendant.mName = sNames[i];
-                        attendant.mDrawableId = sQRDrawables[i];
-                        attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
-                        attendant.mIsGiftExchanged = true;
-                        mAttendantDataList.add(attendant);
-                    }
-                }
-
+                Log.d(TAG, "AttendantData list add id:" + id);
+                AttendantData attendant = new AttendantData();
+                attendant.mID = id;
+                attendant.mIsGiftExchanged = true;
+                mAttendantDataList.add(attendant);
             }
         }
 
-        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split(",");
+        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split("|");
         if(remainderGifts.length>0){
             for(String gift:remainderGifts){
                 mRemainderGiftStrings.add(gift);
@@ -220,6 +233,50 @@ public class GuestManager {
             }
         }
     }
+
+//    public void reloadData() {
+//        mAttendantStrings.clear();
+//        mAttendantDataList.clear();
+//        mRemainderGiftStrings.clear();
+//
+//        String[] attendants = mPreference.getString(Constants.PREFERENCE_ATTENDANT_LIST, "").split("|");
+//        if (attendants.length > 0) {
+//            for (String id : attendants) {
+//                for (int i = 0; i < sIds.length; i++) {
+//                    if (id.toLowerCase().contains(sIds[i])) {
+//                        mAttendantStrings.add(id);
+//                        updateAttendantPreference();
+//
+//                        Log.d(TAG, "AttendantData list add id:" + id);
+//                        AttendantData attendant = new AttendantData();
+//                        attendant.mID = sIds[i];
+//                        attendant.mName = sNames[i];
+//                        attendant.mDrawableId = sQRDrawables[i];
+//                        attendant.mDrawable = ResourcesCompat.getDrawable(mContext.getResources(), attendant.mDrawableId, mContext.getTheme());
+//                        attendant.mIsGiftExchanged = true;
+//                        mAttendantDataList.add(attendant);
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        String[] remainderGifts = mPreference.getString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, "").split("|");
+//        if(remainderGifts.length>0){
+//            for(String gift:remainderGifts){
+//                mRemainderGiftStrings.add(gift);
+//                updateRemainderGiftPreference();
+//            }
+//        }
+//
+//        for(AttendantData attendant:mAttendantDataList){
+//            for(String gift:mRemainderGiftStrings){
+//                if(attendant.mID.contains(gift)){
+//                    attendant.mIsGiftExchanged = false;
+//                }
+//            }
+//        }
+//    }
 
 //    public ArrayList<String> getRemainderList(){
 //        return mRemainderGiftStrings;
@@ -247,7 +304,7 @@ public class GuestManager {
     private String updateAttendantPreference() {
         String attendantsStr = "";
         for (String attendant : mAttendantStrings) {
-            attendantsStr += (attendant + ",");
+            attendantsStr += (attendant + "|");
         }
         mPreference.edit().putString(Constants.PREFERENCE_ATTENDANT_LIST, attendantsStr).commit();
         return attendantsStr;
@@ -256,7 +313,7 @@ public class GuestManager {
     private String updateRemainderGiftPreference() {
         String giftsStr = "";
         for (String gift : mRemainderGiftStrings) {
-            giftsStr += (gift + ",");
+            giftsStr += (gift + "|");
         }
         mPreference.edit().putString(Constants.PREFERENCE_REMAINDER_GIFT_LIST, giftsStr).commit();
         return giftsStr;

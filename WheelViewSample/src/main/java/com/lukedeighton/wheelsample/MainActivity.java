@@ -1,6 +1,5 @@
 package com.lukedeighton.wheelsample;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -26,7 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
+
 import com.lukedeighton.wheelview.WheelView;
 import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
 
@@ -60,21 +58,6 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 //        setSupportActionBar(toolbar);
 
         Log.d(TAG, "onCreate");
-
-        ArrayList<AttendantData> t1 = new ArrayList<AttendantData>();
-        for(int i=0; i<5; i++){
-            AttendantData a = new AttendantData();
-            a.mID = String.valueOf(i+1);
-            a.mName = String.valueOf(i+1)+",abc";
-            t1.add(a);
-        }
-        ArrayList<AttendantData> t2 = (ArrayList<AttendantData> )t1.clone();
-        t2.remove(4);
-        t1.get(0).mID = "cdefg";
-
-        Log.d("test", "t1 size:"+t1.size()+",t2 size:"+t2.size());
-        Log.d("test", "t1-0 id:"+t1.get(0).mID+",t2-0 id:"+t2.get(0).mID);
-
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -255,22 +238,16 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.alert_dialog_layout, null);
 
-            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
+
             Random r = new Random();
             int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
             int index = size>1 ? r.nextInt(size) : 0;
             String id = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderId(index);
             mSelectedGift = GuestManager.getSingleton(MainActivity.this).getAttendantById(id);
 
-//            Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-//                    mSelectedGift.mDrawableId);
-            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
-//            float imageWidthInPX = (float)image.getWidth();
-            Log.d(TAG, "index:"+index+",id:"+mSelectedGift.mID+",name:"+mSelectedGift.mName);
-//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(Math.round(imageWidthInPX),
-//                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-//            image.setLayoutParams(layoutParams);
-
+//            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
+//            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
+            Log.d(TAG, "index:"+index+",id:"+mSelectedGift.mID);
 
             dialog.setView(dialogLayout);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

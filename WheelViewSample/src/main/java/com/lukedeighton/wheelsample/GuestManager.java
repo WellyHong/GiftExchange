@@ -23,25 +23,25 @@ public class GuestManager {
 
 
     private volatile static GuestManager sInstance;
-    private static String[] sIds;
+//    private static String[] sIds;
     //    private static int[] sOthersIds;
-    private static String[] sNames;
+//    private static String[] sNames;
 
-    private static int[] sQRDrawables = {
-            R.drawable.n044020001, R.drawable.n044020002, R.drawable.n044020003, R.drawable.n044020004, R.drawable.n044020005,
-            R.drawable.n044020006, R.drawable.n044020007, R.drawable.n044020008, R.drawable.n044020009, R.drawable.n044020010,
-            R.drawable.n044020011, R.drawable.n044020012, R.drawable.n044020013, R.drawable.n044020014, R.drawable.n044020015,
-            R.drawable.n044020016, R.drawable.n044020017, R.drawable.n044020018, R.drawable.n044020019, R.drawable.n044020020,
-            R.drawable.n044020021, R.drawable.n044020022, R.drawable.n044020023, R.drawable.n044020024, R.drawable.n044020025,
-            R.drawable.n044020026, R.drawable.n044020027, R.drawable.n044020028, R.drawable.n044020029, R.drawable.n044020030,
-            //105
-            R.drawable.n054020001, R.drawable.n054020002, R.drawable.n054020003, R.drawable.n054020004, R.drawable.n054020005,
-            R.drawable.n054020006, R.drawable.n054020007, R.drawable.n054020008, R.drawable.n054020009, R.drawable.n054020010,
-            R.drawable.n054020011, R.drawable.n054020012, R.drawable.n054020013, R.drawable.n054020014, R.drawable.n054020015,
-            R.drawable.n054020016, R.drawable.n054020017, R.drawable.n054020018, R.drawable.n054020019, R.drawable.n054020020,
-            R.drawable.n054020021, R.drawable.n054020022, R.drawable.n054020023, R.drawable.n054020024, R.drawable.n054020025,
-            R.drawable.n054020026, R.drawable.n054020027, R.drawable.n054020028, R.drawable.n054020029, R.drawable.n054020030,
-    };
+//    private static int[] sQRDrawables = {
+//            R.drawable.n044020001, R.drawable.n044020002, R.drawable.n044020003, R.drawable.n044020004, R.drawable.n044020005,
+//            R.drawable.n044020006, R.drawable.n044020007, R.drawable.n044020008, R.drawable.n044020009, R.drawable.n044020010,
+//            R.drawable.n044020011, R.drawable.n044020012, R.drawable.n044020013, R.drawable.n044020014, R.drawable.n044020015,
+//            R.drawable.n044020016, R.drawable.n044020017, R.drawable.n044020018, R.drawable.n044020019, R.drawable.n044020020,
+//            R.drawable.n044020021, R.drawable.n044020022, R.drawable.n044020023, R.drawable.n044020024, R.drawable.n044020025,
+//            R.drawable.n044020026, R.drawable.n044020027, R.drawable.n044020028, R.drawable.n044020029, R.drawable.n044020030,
+//            //105
+//            R.drawable.n054020001, R.drawable.n054020002, R.drawable.n054020003, R.drawable.n054020004, R.drawable.n054020005,
+//            R.drawable.n054020006, R.drawable.n054020007, R.drawable.n054020008, R.drawable.n054020009, R.drawable.n054020010,
+//            R.drawable.n054020011, R.drawable.n054020012, R.drawable.n054020013, R.drawable.n054020014, R.drawable.n054020015,
+//            R.drawable.n054020016, R.drawable.n054020017, R.drawable.n054020018, R.drawable.n054020019, R.drawable.n054020020,
+//            R.drawable.n054020021, R.drawable.n054020022, R.drawable.n054020023, R.drawable.n054020024, R.drawable.n054020025,
+//            R.drawable.n054020026, R.drawable.n054020027, R.drawable.n054020028, R.drawable.n054020029, R.drawable.n054020030,
+//    };
 
     public static GuestManager getSingleton(Context c) {
         if (sInstance == null) {
@@ -59,9 +59,12 @@ public class GuestManager {
         Log.d(TAG, "GuestManager construct");
         mContext = c;
 
-        sIds = c.getResources().getStringArray(R.array.ids);
-        sNames = c.getResources().getStringArray(R.array.names);
         mPreference = c.getSharedPreferences(Constants.PREFERENCE_NAME_GIFT_EXCHANGE, 0);
+
+        if(Constants.sIsNeedDB) {
+            sIds = c.getResources().getStringArray(R.array.ids);
+            sNames = c.getResources().getStringArray(R.array.names);
+        }
 
 //        if(mRemainderBingoList.size()<=0) {
 //            for (int i = 0; i < 75; i++) {

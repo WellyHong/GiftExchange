@@ -5,6 +5,7 @@ package com.lukedeighton.wheelsample;
  */
 
 public class Constants {
+    public static final Boolean sIsNeedDB = false;
     public static final String PREFERENCE_NAME_GIFT_EXCHANGE = "PREFERENCE_NAME_GIFT_EXCHANGE";
 //    public static final String PREFERENCE_BINGO_NUMBER = "PREFERENCE_BINGO_NUMBER";
 //    public static final String PREFERENCE_REMENDER_BINGO_NUMBER = "PREFERENCE_REMENDER_BINGO_NUMBER";

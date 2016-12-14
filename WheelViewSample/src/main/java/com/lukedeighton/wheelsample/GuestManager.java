@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.text.Html;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -102,15 +103,16 @@ public class GuestManager {
                     || s.equals(id)
                     || id.contains(s)) {
                 Log.w(TAG, "attendant list contain:" + s);
-                new AlertDialog.Builder(c)
-                        .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(c)
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        } )
-                        .setMessage(id+"\n"+mContext.getResources().getString(R.string.text_duplicate_attendant))
-                        .create()
-                        .show();
+                        })
+                        .setMessage(Html.fromHtml("<Big><Big>" + id + "\n" + mContext.getResources().getString(R.string.text_duplicate_attendant) + "</Big></Big>"))
+                        .create();
+                dialog.show();
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
                 return;
             }
         }

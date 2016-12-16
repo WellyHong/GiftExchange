@@ -1,0 +1,12 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_register">30sp</dimen>
+    <dimen name="text_gift_count">35sp</dimen>
+    <dimen name="text_current_status">27sp</dimen>
+    <dimen name="text_attendant_count">26sp</dimen>
+    <dimen name="text_list_attendant">30sp</dimen>
+    <dimen name="checkbox_exchange">20sp</dimen>
+    <dimen name="dialog_exchange_messag">40sp</dimen>
+</resources>

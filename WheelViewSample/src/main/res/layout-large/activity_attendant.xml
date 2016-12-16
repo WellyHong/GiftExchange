@@ -21,9 +21,9 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:text="@string/text_attendant_count"
-        android:textSize="@dimen/text_attendant_count"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:textSize="@string/text_attendant_count"
+        android:layout_height="30dp"
+        android:layout_width="140dp"
         android:textStyle="normal|bold" />
 
     <EditText
@@ -61,14 +61,13 @@
     <TextView
         android:id="@+id/textview_attendant_count"
         android:text="0"
-        android:textSize="@dimen/text_attendant_count"
+        android:textSize="26sp"
         android:textAlignment="viewStart"
         android:gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="normal|bold"
-        android:layout_below="@+id/editText2"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/btn_add"
         android:layout_toRightOf="@+id/label_attentdant"
-        android:layout_toEndOf="@+id/label_attentdant" />
-
+        android:layout_toEndOf="@+id/label_attentdant"
+        android:textStyle="normal|bold" />
 </RelativeLayout>

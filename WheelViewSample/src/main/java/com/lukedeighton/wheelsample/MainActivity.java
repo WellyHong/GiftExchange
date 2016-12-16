@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +40,10 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             R.drawable.gift1, R.drawable.gift2, R.drawable.gift3, R.drawable.gift4, R.drawable.gift5,
             R.drawable.gift6, R.drawable.gift7, R.drawable.gift8, R.drawable.gift9, R.drawable.gift10,
             R.drawable.gift11, R.drawable.gift12, R.drawable.gift13, R.drawable.gift14, R.drawable.gift15,
-            R.drawable.gift16, R.drawable.gift17, };
+            R.drawable.gift16, R.drawable.gift17,};
 
 
-    List<Pair<String, Pair<Drawable, Integer>>> mDrawableEntries  = new ArrayList<Pair<String, Pair<Drawable,Integer>>>(ITEM_COUNT);
+    List<Pair<String, Pair<Drawable, Integer>>> mDrawableEntries = new ArrayList<Pair<String, Pair<Drawable, Integer>>>(ITEM_COUNT);
     private ImageView mImageView = null;
     private Button mBtnRegister = null;
     private Button mBtnBingo = null;
@@ -66,16 +65,16 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        mTextViewGiftCount = (TextView)findViewById(R.id.textview_gift_count);
-        mTextViewPreExchange = (TextView)findViewById(R.id.text_preExChange);
-        mTextViewPostExchange = (TextView)findViewById(R.id.text_postExchange);
+        mTextViewGiftCount = (TextView) findViewById(R.id.textview_gift_count);
+        mTextViewPreExchange = (TextView) findViewById(R.id.text_preExChange);
+        mTextViewPostExchange = (TextView) findViewById(R.id.text_postExchange);
 
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setOnTouchListener(this);
         mImageView.setVisibility(View.INVISIBLE);
-        mBtnRegister = (Button)findViewById(R.id.registerBtn);
+        mBtnRegister = (Button) findViewById(R.id.registerBtn);
         mBtnRegister.setOnClickListener(this);
-        mBtnBingo = (Button)findViewById(R.id.btn_bingo);
+        mBtnBingo = (Button) findViewById(R.id.btn_bingo);
         mBtnBingo.setOnClickListener(this);
 
 //        Drawable d1 = ResourcesCompat.getDrawable(getResources(), R.drawable.gift2, getTheme());
@@ -83,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 //        mImageView.setImageDrawable(d1);
 
         final WheelView wheelView = (WheelView) findViewById(R.id.wheelview);
-        if(wheelView==null){
+        if (wheelView == null) {
             return;
         }
 //
@@ -92,7 +91,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
         for (int i = 0; i < ITEM_COUNT; i++) {
             Map.Entry<String, Integer> entry = MaterialColor.random(this, "\\D*_500$");
             entries.add(entry);
-            Drawable d = ResourcesCompat.getDrawable(getResources(), sGiftDrawables[i%17], getTheme());
+            Drawable d = ResourcesCompat.getDrawable(getResources(), sGiftDrawables[i % 17], getTheme());
             Pair<Drawable, Integer> p = new Pair(d, entry.getValue());
             Pair<String, Pair<Drawable, Integer>> entry2 = new Pair<String, Pair<Drawable, Integer>>(entry.getKey(), p);
             mDrawableEntries.add(entry2);
@@ -112,7 +111,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
                 Pair<String, Pair<Drawable, Integer>> selectedEntry = ((DrawableAdapter) parent.getAdapter()).getItem(position);
                 parent.setSelectionColor(getContrastColor(selectedEntry));
                 mImageView.setVisibility(View.VISIBLE);
-                mImageView.setBackgroundResource(sGiftDrawables[position%17]);
+                mImageView.setBackgroundResource(sGiftDrawables[position % 17]);
             }
         });
 
@@ -144,7 +143,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
         return MaterialColor.getContrastColor(colorName);
     }
 
-    private int getContrastColor(Pair<String, Pair<Drawable,Integer>> entry) {
+    private int getContrastColor(Pair<String, Pair<Drawable, Integer>> entry) {
         String colorName = MaterialColor.getColorName(entry);
         return MaterialColor.getContrastColor(colorName);
     }
@@ -160,7 +159,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
-        }else if(id == R.id.action_clear_all){
+        } else if (id == R.id.action_clear_all) {
             Log.d(TAG, "menu clear all pressed");
             new AlertDialog.Builder(this)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -181,7 +180,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
 
             return true;
-        }else if(id == R.id.action_reload){
+        } else if (id == R.id.action_reload) {
 
             Log.d(TAG, "menu reload pressed");
             new AlertDialog.Builder(this)
@@ -207,15 +206,15 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(v.getId()==R.id.imageView ){
-            if(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()<=0){
+        if (v.getId() == R.id.imageView) {
+            if (GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize() <= 0) {
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setPositiveButton("ok", new  DialogInterface.OnClickListener() {
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        } )
-                        .setMessage(Html.fromHtml("<Big><Big>"+MainActivity.this.getResources().getString(R.string.text_no_gift)+"</Big></Big>"))
+                        })
+                        .setMessage(Html.fromHtml("<Big><Big>" + MainActivity.this.getResources().getString(R.string.text_no_gift) + "</Big></Big>"))
                         .create();
                 dialog.show();
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
@@ -227,21 +226,24 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             String confirm = getResources().getString(R.string.btn_confirm_select);
             String cancel = getResources().getString(R.string.btn_cancel_select);
-            builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d(TAG, "confirm gift click");
-                    GuestManager.getSingleton(MainActivity.this.getApplicationContext()).exchangeWithAttendant(mSelectedGift);
-                    int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
-                    mTextViewGiftCount.setText(String.valueOf(size));
-                    mTextViewPreExchange.setText(mStrPreExchanger);
-                    mTextViewPostExchange.setText(mStrPostExchanger);
-                }
-            }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
+            builder
+                    .setPositiveButton(confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d(TAG, "confirm gift click");
+                            GuestManager.getSingleton(MainActivity.this.getApplicationContext()).exchangeWithAttendant(mSelectedGift);
+                            int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
+                            mTextViewGiftCount.setText(String.valueOf(size));
+                            mTextViewPreExchange.setText(mStrPreExchanger);
+                            mTextViewPostExchange.setText(mStrPostExchanger);
+                        }
+                    })
+//                    .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                    })
+            ;
 
 
             final AlertDialog dialog = builder.create();
@@ -250,31 +252,32 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
             Random r = new Random();
             int size = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderGiftSize();
-            int index = size>1 ? r.nextInt(size) : 0;
+            int index = size > 1 ? r.nextInt(size) : 0;
             String id = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getRemainderId(index);
 
-            mStrPreExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPreExchanger;
+            mStrPreExchanger = mSelectedGift != null ? mSelectedGift.mID : mStrPreExchanger;
             mSelectedGift = GuestManager.getSingleton(MainActivity.this.getApplicationContext()).getAttendantById(id);
-            mStrPostExchanger = mSelectedGift!=null ? mSelectedGift.mID : mStrPostExchanger;
+            mStrPostExchanger = mSelectedGift != null ? mSelectedGift.mID : mStrPostExchanger;
 
             String[] separator = mStrPreExchanger.split(Constants.QR_SEPARATOR);
-            mStrPreExchanger = separator.length>=2 ? separator[1] : mStrPreExchanger;
+            mStrPreExchanger = separator.length >= 2 ? separator[1] : mStrPreExchanger;
             separator = mStrPostExchanger.split(Constants.QR_SEPARATOR);
-            mStrPostExchanger = separator.length>=2 ? separator[1] : mStrPostExchanger;
+            mStrPostExchanger = separator.length >= 2 ? separator[1] : mStrPostExchanger;
 //            ImageView image = (ImageView) dialogLayout.findViewById(R.id.dialog_image_qr);
 //            image.setImageResource(mSelectedGift!=null ? mSelectedGift.mDrawableId : R.drawable.gift1);
 
 //            EditText edit = (EditText)dialogLayout.findViewById(R.id.editText_gift);
 //            edit.setInputType(InputType.TYPE_NULL);
 
-            TextView textSelected = (TextView)dialogLayout.findViewById(R.id.textView_exchange_person);
+            TextView textSelected = (TextView) dialogLayout.findViewById(R.id.textView_exchange_person);
             textSelected.setText(mSelectedGift.mID);
-            Log.d(TAG, "index:"+index+",id:"+mSelectedGift.mID);
+            Log.d(TAG, "index:" + index + ",id:" + mSelectedGift.mID);
 
             dialog.setView(dialogLayout);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-            dialog.show();dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
+            dialog.show();
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(28);
 
             dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(28);
 
@@ -308,13 +311,13 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
         int size = GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize();
@@ -322,26 +325,26 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop");
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.registerBtn){
+        if (v.getId() == R.id.registerBtn) {
             Intent intent = new Intent(this, AttendantActivity.class);
             startActivity(intent);
 
@@ -385,7 +388,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
         @Override
         public Drawable getDrawable(int position) {
-            Drawable[] drawable = new Drawable[] {
+            Drawable[] drawable = new Drawable[]{
                     createOvalDrawable(getItem(position).getValue()),
                     new TextDrawable(String.valueOf(position))
             };
@@ -406,7 +409,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
         @Override
         public Drawable getDrawable(int position) {
-            Drawable[] drawable = new Drawable[] {
+            Drawable[] drawable = new Drawable[]{
                     createOvalDrawable(getItem(position).second.second),
                     getItem(position).second.first,
 //                    new TextDrawable(String.valueOf(position))

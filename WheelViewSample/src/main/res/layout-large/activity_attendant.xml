@@ -21,7 +21,7 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:text="@string/text_attendant_count"
-        android:textSize="@string/text_attendant_count"
+        android:textSize="@dimen/text_attendant_count"
         android:layout_height="30dp"
         android:layout_width="140dp"
         android:textStyle="normal|bold" />
@@ -61,7 +61,7 @@
     <TextView
         android:id="@+id/textview_attendant_count"
         android:text="0"
-        android:textSize="26sp"
+        android:textSize="@dimen/text_attendant_count"
         android:textAlignment="viewStart"
         android:gravity="start"
         android:layout_width="100dp"

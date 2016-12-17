@@ -168,6 +168,8 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
                             Log.d(TAG, "confirm clear all");
                             GuestManager.getSingleton(getApplicationContext()).clearAllData();
                             mTextViewGiftCount.setText(String.valueOf(GuestManager.getSingleton(getApplicationContext()).getRemainderGiftSize()));
+                            mTextViewPostExchange.setText("XXXXX");
+                            mTextViewPreExchange.setText("XXXXX");
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
@@ -247,6 +249,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
 
 
             final AlertDialog dialog = builder.create();
+            dialog.setCanceledOnTouchOutside(false);
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.alert_dialog_layout, null);
 

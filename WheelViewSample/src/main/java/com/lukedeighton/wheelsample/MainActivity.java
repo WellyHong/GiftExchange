@@ -119,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements ImageView.OnTouch
             @Override
             public void onWheelItemClick(WheelView parent, int position, boolean isSelected) {
                 String msg = String.valueOf(position) + " " + isSelected;
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
